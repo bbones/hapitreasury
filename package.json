@@ -1,0 +1,26 @@
+{
+  "name": "hapitreasury",
+  "version": "1.0.0",
+  "description": "Backend Treasury App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbones/hapitreasury.git"
+  },
+  "keywords": [
+    "hapi",
+    "node"
+  ],
+  "author": "Valentyn Pogrebinsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bbones/hapitreasury/issues"
+  },
+  "homepage": "https://github.com/bbones/hapitreasury#readme",
+  "dependencies": {
+    "hapi": "^16.1.0"
+  }
+}
