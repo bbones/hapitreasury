@@ -1,4 +1,5 @@
 const pgPool = require('../utility/pg-pool');
+const Boom = require('boom');
 
 const enterpriseHandlers = {
     getEnterpriseList : function (request, reply) {
@@ -21,8 +22,6 @@ const enterpriseHandlers = {
         });
     },
     getEnterprise : function (request, reply) {
-        debugger;
-        console.log(request);
         pgPool.connect(function(err, client, done) {
           if(err) {
             return console.error('error fetching client from pool', err);
@@ -38,8 +37,7 @@ const enterpriseHandlers = {
                 reply(Boom.wrap(err));
                 return console.error('error running query', err);
               }
-              reply(result.rows);
-              console.log(result.rows);
+              reply(result.rows[0]);
               //output: 1
             }
           );

@@ -3,7 +3,6 @@
 const Hapi = require('hapi');
 
 const server = new Hapi.Server();
-const Boom = require('boom');
 const enterpriseHandlers = require('./handlers/enterprises');
 
 server.connection({ port: 3000, host: 'localhost' });
