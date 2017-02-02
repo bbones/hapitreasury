@@ -9,7 +9,7 @@ server.connection({ port: 3000, host: 'localhost' });
 
 server.route({
     method: 'GET',
-    path: '/enterprises',
+    path: '/enterprises/',
     handler: enterpriseHandlers.getEnterpriseList
 });
 
