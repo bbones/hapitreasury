@@ -6,7 +6,15 @@ const EnterprisesSerializer = new JSONAPISerializer('enterprises',
   {attributes : ['name']});
 
 const EnterpriseSerializer = new JSONAPISerializer('enterprises',
-    {attributes : ['name','liabilities']});
+    {
+      attributes : ['name','liabilities'],
+      liabilities : {ref: function(collection, field) {
+            // console.log('c->', collection);
+            // console.log('f->', field);
+            return field.id;
+          },
+          attributes: ['amount']}
+    });
 
 const enterpriseHandlers = {
     getEnterpriseList : function (request, reply) {
@@ -50,12 +58,12 @@ const enterpriseHandlers = {
                 function(err, result) {
                   //call `done()` to release the client back to the pool
                   done();
-                  debugger;
                   if(err) {
                     reply(Boom.wrap(err));
                     return console.error('error running query', err);
                   }
                   enterprise.liabilities = result.rows;
+                  console.log(enterprise);
                   reply(EnterpriseSerializer.serialize(enterprise));
                 }
               );
