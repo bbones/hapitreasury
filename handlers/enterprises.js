@@ -45,9 +45,6 @@ const enterpriseHandlers = {
             'SELECT * from treasury.party where id=$1',
             [request.params.id],
             function(err, result) {
-              //call `done()` to release the client back to the pool
-              done();
-
               if(err) {
                 reply(Boom.wrap(err));
                 return console.error('error running query', err);
