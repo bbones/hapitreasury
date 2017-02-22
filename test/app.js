@@ -1,7 +1,5 @@
-var Repo = require('../repository/repo.js')
-var repo = new Repo()
-var sequelize = repo.sequelize
-var Sequelize = repo.Sequelize
+const Sequelize = require('sequelize')
+const sequelize = new Sequelize('postgres://bbones:bb@localhost:5432/postgres')
 
 const Party = sequelize.define('party', {
   name: {
@@ -20,5 +18,12 @@ const Liability = sequelize.define('liability', {
 Liability.belongsTo(Party, { as: 'party', constraints: true })
 Liability.belongsTo(Party, { as: 'unit', constraints: true })
 
-module.exports.Party = Party
-module.exports.Liability = Liability
+sequelize.sync({force: true}).then(() => {
+  let party = Party.create({name: 'ISD Corp'})
+  let unit = Party.create({name: 'AMK'})
+  let liability = Liability.create({
+    amount: 100
+  })
+  liability.setParty(party)
+  liability.setUnit(unit)
+})
