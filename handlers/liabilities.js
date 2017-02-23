@@ -4,17 +4,18 @@ const sequelize = repo.sequelize
 const models = require('../models/models')
 
 const liabilityHandlers = {
+  getLiabilities: (request, reply) => {
+    reply(models.Liability.findAll())
+  },
+
   postLiability: (request, reply) => {
     console.log(request.payload.amount)
     console.log(request.payload.party_id)
-    let party = models.Party.findById(request.payload.party_id)
-    let unit = models.Party.findById(request.payload.unit_id)
     let liability = models.Liability.create({
-      amount: request.payload.amount
-    })
-    debugger
-    liability.setParty(party)
-    liability.setUnit(unit)
+      amount: request.payload.amount,
+      party_id: request.payload.party_id,
+      unit_id: request.payload.unit_id
+    }, {include: [models.Liability.Party, models.Liability.Unit]})
     reply(liability)
   }
 }

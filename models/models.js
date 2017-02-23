@@ -17,8 +17,8 @@ const Liability = sequelize.define('liability', {
   }
 }, {underscored: true})
 
-Liability.belongsTo(Party, { as: 'party', constraints: true })
-Liability.belongsTo(Party, { as: 'unit', constraints: true })
+Liability.Party = Liability.belongsTo(Party, { as: 'party', constraints: true })
+Liability.Unit = Liability.belongsTo(Party, { as: 'unit', constraints: true })
 
 module.exports.Party = Party
 module.exports.Liability = Liability

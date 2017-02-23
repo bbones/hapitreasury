@@ -29,9 +29,21 @@ var router = function (server) {
   })
 
   server.route({
+    method: 'GET',
+    path: '/liabilities',
+    handler: liabilityHandlers.getLiabilities
+  })
+
+  server.route({
     method: 'POST',
     path: '/parties',
     handler: partyHandlers.postParty
+  })
+
+  server.route({
+    method: 'GET',
+    path: '/parties',
+    handler: partyHandlers.getParties
   })
 }
 

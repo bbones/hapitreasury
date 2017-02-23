@@ -7,7 +7,11 @@ const partyHandlers = {
   postParty: (request, reply) => {
     console.log(request.payload.name)
     reply(models.Party.create({name: request.payload.name}))
+  },
+  getParties: (request, reply) => {
+    reply(models.Party.findAll())
   }
+
 }
 
 module.exports = partyHandlers

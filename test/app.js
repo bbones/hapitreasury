@@ -15,15 +15,19 @@ const Liability = sequelize.define('liability', {
   }
 }, {underscored: true})
 
-Liability.belongsTo(Party, { as: 'party', constraints: true })
-Liability.belongsTo(Party, { as: 'unit', constraints: true })
+Liability.Party = Liability.belongsTo(Party, { as: 'party', constraints: true })
+Liability.Unit = Liability.belongsTo(Party, { as: 'unit', constraints: true })
 
 sequelize.sync({force: true}).then(() => {
-  let party = Party.create({name: 'ISD Corp'})
-  let unit = Party.create({name: 'AMK'})
-  let liability = Liability.create({
-    amount: 100
+  Promise.all([
+    Party.create({name: 'ISD Corp'}),
+    Party.create({name: 'AMK'})])
+  .then((values) => {
+    values.map((v) => console.log(v.dataValues))
+    let liability = Liability.create({
+      amount: 100,
+      party_id: values[0].id,
+      unit_id: values[1].id
+    }, {include: [Liability.Party, Liability.Unit]})
   })
-  liability.setParty(party)
-  liability.setUnit(unit)
 })
