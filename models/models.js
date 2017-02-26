@@ -19,6 +19,8 @@ const Liability = sequelize.define('liability', {
 
 Liability.Party = Liability.belongsTo(Party, { as: 'party', constraints: true })
 Liability.Unit = Liability.belongsTo(Party, { as: 'unit', constraints: true })
+Party.hasMany(Liability, {as: 'liabs', foreignKey: 'party_id'})
+Party.hasMany(Liability, {as: 'unliab', foreignKey: 'unit_id'})
 
 module.exports.Party = Party
 module.exports.Liability = Liability
