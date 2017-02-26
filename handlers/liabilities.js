@@ -1,11 +1,18 @@
 const Repo = require('../repository/repo.js')
-const repo = new Repo()
-const sequelize = repo.sequelize
 const models = require('../models/models')
+const JSONAPISerializer = require('jsonapi-serializer').Serializer
+
+const LiabilitySerializer = new JSONAPISerializer('liabilities',
+  {attributes: ['amount']})
 
 const liabilityHandlers = {
   getLiabilities: (request, reply) => {
-    reply(models.Liability.findAll())
+    models.Liability.findAll({
+      include: {
+        model: models.Party,
+        as: 'Party'
+      }
+    }).then((data) => reply(LiabilitySerializer.serialize(data)))
   },
 
   postLiability: (request, reply) => {
@@ -16,7 +23,7 @@ const liabilityHandlers = {
       party_id: request.payload.party_id,
       unit_id: request.payload.unit_id
     }, {include: [models.Liability.Party, models.Liability.Unit]})
-    reply(liability)
+    reply(LiabilitySerializer.serialize(liability))
   }
 }
 
