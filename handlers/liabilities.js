@@ -1,17 +1,27 @@
-const Repo = require('../repository/repo.js')
 const models = require('../models/models')
 const JSONAPISerializer = require('jsonapi-serializer').Serializer
 
 const LiabilitySerializer = new JSONAPISerializer('liabilities',
-  {attributes: ['amount']})
+  {
+    attributes: ['amount', 'party', 'unit'],
+    party: {
+      ref: function (liability, party) {
+        return party.id
+      },
+      attributes: ['name']
+    },
+    unit: {
+      ref: function (liability, unit) {
+        return unit.id
+      },
+      attributes: ['name']
+    }
+  })
 
 const liabilityHandlers = {
   getLiabilities: (request, reply) => {
     models.Liability.findAll({
-      include: {
-        model: models.Party,
-        as: 'Party'
-      }
+      include: [models.Liability.Party, models.Liability.Unit]
     }).then((data) => reply(LiabilitySerializer.serialize(data)))
   },
 
