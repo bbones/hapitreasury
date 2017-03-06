@@ -25,6 +25,12 @@ const liabilityHandlers = {
     }).then((data) => reply(LiabilitySerializer.serialize(data)))
   },
 
+  getLiability: (request, reply) => {
+    models.Liability.findById(request.params.id, {
+      include: [models.Liability.Party, models.Liability.Unit]
+    }).then((data) => reply(LiabilitySerializer.serialize(data)))
+  },
+
   postLiability: (request, reply) => {
     console.log(request.payload.amount)
     console.log(request.payload.party_id)

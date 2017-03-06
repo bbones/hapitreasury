@@ -9,6 +9,7 @@ const routes = [
   {method: 'GET', path: '/enterprises/{id}', handler: enterpriseh.getEnterprise},
   {method: 'POST', path: '/liabilities', handler: liabilityh.postLiability},
   {method: 'GET', path: '/liabilities', handler: liabilityh.getLiabilities},
+  {method: 'GET', path: '/liabilities/{id}', handler: liabilityh.getLiability},
   {method: 'POST', path: '/parties', handler: partyh.postParty},
   {method: 'GET', path: '/parties', handler: partyh.getParties},
   {method: 'DELETE', path: '/parties/{id}', handler: partyh.deleteParty}
