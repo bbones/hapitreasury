@@ -17,7 +17,12 @@ const partyHandlers = {
   },
   getParties: (request, reply) => {
     console.log(request.query)
-    models.Party.findAll().then((data) => reply(PartySerializer.serialize(data)))
+    if (request.query.q) {
+      models.Party.findAll({where: {name: {$like: request.query.q + '%'}}})
+        .then((data) => reply(PartySerializer.serialize(data)))
+    } else {
+      models.Party.findAll().then((data) => reply(PartySerializer.serialize(data)))
+    }
   },
   deleteParty: (request, reply) => {
     models.Party.findById(request.params.id).then((party) => {
