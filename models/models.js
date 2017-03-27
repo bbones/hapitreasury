@@ -17,8 +17,17 @@ const Liability = sequelize.define('liability', {
   }
 }, {underscored: true})
 
+const Payments = sequelize.define('payment', {
+  amount: {
+    type: Sequelize.DECIMAL(12, 2),
+    field: 'amount'
+  }
+}, {underscored: true})
+
 Liability.Party = Liability.belongsTo(Party, { as: 'party', constraints: true })
 Liability.Unit = Liability.belongsTo(Party, { as: 'unit', constraints: true })
+Payments.Party = Payments.belongsTo(Party, { as: 'party', constraints: true })
+Payments.Unit = Payments.belongsTo(Party, { as: 'unit', constraints: true })
 Party.hasMany(Liability, {as: 'liabs', foreignKey: 'party_id'})
 Party.hasMany(Liability, {as: 'unliab', foreignKey: 'unit_id'})
 
