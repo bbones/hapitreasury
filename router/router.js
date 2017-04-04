@@ -12,6 +12,7 @@ const routes = [
   {method: 'GET', path: '/liabilities/{id}', handler: liabilityh.getLiability},
   {method: 'POST', path: '/parties', handler: partyh.postParty},
   {method: 'GET', path: '/parties', handler: partyh.getParties},
+  {method: 'GET', path: '/parties/{id}', handler: partyh.getParty},
   {method: 'DELETE', path: '/parties/{id}', handler: partyh.deleteParty}
 ]
 const router = function (server) {

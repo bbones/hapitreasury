@@ -24,6 +24,12 @@ const partyHandlers = {
       models.Party.findAll().then((data) => reply(PartySerializer.serialize(data)))
     }
   },
+  getParty: (request, reply) => {
+    console.log(request.query)
+    models.Party.findById(request.params.id).then((party) => {
+      reply(PartySerializer.serialize(party))
+    })
+  },
   deleteParty: (request, reply) => {
     models.Party.findById(request.params.id).then((party) => {
       party.destroy().then((data) => {
