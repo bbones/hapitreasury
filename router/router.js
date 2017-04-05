@@ -13,6 +13,7 @@ const routes = [
   {method: 'POST', path: '/parties', handler: partyh.postParty},
   {method: 'GET', path: '/parties', handler: partyh.getParties},
   {method: 'GET', path: '/parties/{id}', handler: partyh.getParty},
+  {method: 'PATCH', path: '/parties/{id}', handler: partyh.patchParty},
   {method: 'DELETE', path: '/parties/{id}', handler: partyh.deleteParty}
 ]
 const router = function (server) {
